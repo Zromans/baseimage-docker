@@ -370,7 +370,9 @@ Here's how it compares to [using SSH to login to the container or to run a comma
    * Processes executed by `nsenter` behave in a slightly different manner than normal. For example, they cannot be killed by any normal processes inside the container. This also applies to any child processes as well.
    * If the `nsenter` process is terminated by a signal, then the command that is executed by nsenter is *not* killed and cleaned up. You will have to do that manually.
    * Requires learning another tool.
+   * Requires root privileges on the Docker host.
    * Requires the `nsenter` tool to be available on the Docker host. At the time of writing (July 2014), most Linux distributions do not ship it. However, baseimage-docker provides a precompiled binary, and allows you to easily use it, through its [docker-bash](#docker_bash) tool.
+   * Not possible to allow users to login to the container without also letting them login to the Docker host.
 
 <a name="nsenter_usage"></a>
 #### Usage
@@ -430,6 +432,8 @@ Here's how it compares to [using nsenter to login to the container or to run a c
  * Pros
    * Does not require a tool like `nsenter` to be available on the Docker host. Virtually everybody already has an SSH client installed.
    * There no surprises with processes behaving slightly differently than normal, as is the case when using `nsenter`.
+   * Does not require root privileges on the Docker host.
+   * Allows you to let users login to the container, without letting them login to the Docker host. However, this is not enabled by default because baseimage-docker does not expose the SSH server to the public Internet by default.
  * Cons
    * Requires setting up SSH keys. However, baseimage-docker makes this easy for many cases through a pregenerated, insecure key. Read on to learn more.
 
