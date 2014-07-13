@@ -51,4 +51,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   if Dir.glob("#{File.dirname(__FILE__)}/.vagrant/machines/default/*/id").empty?
     config.vm.provision :shell, :inline => $script
   end
+  config.vm.network "forwarded_port", guest: 6543, host: 6543
 end
